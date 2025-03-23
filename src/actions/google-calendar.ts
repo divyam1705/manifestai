@@ -18,7 +18,7 @@ const GOOGLE_CALENDAR_API_URL =
 
 export const insertEvent = async (event: EventType) => {
   const token = await getAccessToken();
-  console.log("token", token);
+  // console.log("token", token);
   try {
     const response = await fetch(GOOGLE_CALENDAR_API_URL, {
       method: "POST",
@@ -30,14 +30,14 @@ export const insertEvent = async (event: EventType) => {
     });
 
     if (!response.ok) {
-      console.log(response);
+      // console.log(response);
       throw new Error(`Error inserting event: ${response?.statusText}`);
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error inserting event:", error);
+    // console.error("Error inserting event:", error);
     throw error;
   }
 };
@@ -57,7 +57,7 @@ export const deleteEvent = async (eventId: string) => {
 
     return true;
   } catch (error) {
-    console.error("Error deleting event:", error);
+    // console.error("Error deleting event:", error);
     throw error;
   }
 };
@@ -78,7 +78,7 @@ export const importEvents = async () => {
     const data = await response.json();
     return data.items; // Assuming the events are in the 'items' array
   } catch (error) {
-    console.error("Error importing events:", error);
+    // console.error("Error importing events:", error);
     throw error;
   }
 };
@@ -90,7 +90,7 @@ const getAccessToken = async () => {
 
   // Check for provider_token in user meta_data
   let providerToken = user?.user_metadata?.provider_token;
-  console.log("user met", user?.user_metadata);
+  // console.log("user met", user?.user_metadata);
   if (!providerToken) {
     // If not found, check the session for provider_token
     const {
@@ -111,6 +111,6 @@ const getAccessToken = async () => {
     }
   }
 
-  console.log("provider_token", providerToken);
+  // console.log("provider_token", providerToken);
   return providerToken; // Return the provider_token
 };

@@ -206,13 +206,7 @@ const WishInput = () => {
                 </Card>
             </motion.div>
 
-            {/* Floating particles */}
-            <div className="absolute -top-20 -left-20 w-60 h-60 opacity-20">
-                <div className="particles-sm"></div>
-            </div>
-            <div className="absolute -bottom-20 -right-20 w-60 h-60 opacity-20">
-                <div className="particles-sm"></div>
-            </div>
+
         </div>
     );
 };

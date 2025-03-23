@@ -4,8 +4,9 @@ import { Volume2, VolumeX } from 'lucide-react';
 import { Button } from './ui/button';
 
 const MusicController = () => {
-    const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+    const [isMusicPlaying, setIsMusicPlaying] = useState<boolean>(false);
     const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+    const [initialMusicPlay, setInitialMusicPlay] = useState<boolean>(false);
     // Audio setup on mount
     useEffect(() => {
         const audio = new Audio('/celestial-ambient.mp3');
@@ -20,6 +21,31 @@ const MusicController = () => {
             }
         };
     }, []);
+
+    useEffect(() => {
+        const handleMouseMove = () => {
+            if (audioElement && !isMusicPlaying && initialMusicPlay === false) {
+                const playPromise = audioElement.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            setIsMusicPlaying(true);
+                            setInitialMusicPlay(true);
+                            window.removeEventListener('mousemove', handleMouseMove);
+                        })
+                        .catch((error: Error) => {
+                            console.error('Error playing audio on mouse move:', error);
+                        });
+                }
+            }
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [audioElement, isMusicPlaying]);
 
 
 
@@ -54,6 +80,7 @@ const MusicController = () => {
             console.error("Error toggling music:", err);
         }
     };
+
 
     return (
         <Button

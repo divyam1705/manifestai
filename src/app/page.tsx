@@ -14,14 +14,7 @@ import AddEvent from '@/components/AddEvent';
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate resource loading
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
 
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div className="min-h-screen bg-black">
@@ -35,7 +28,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="z-[9999]"
           >
-            <LoadingState />
+            <LoadingState isPLoading={isLoading} setIsPLoading={setIsLoading} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -99,16 +92,15 @@ export default function Home() {
       {/* Main Content Section with Dark Gradient Background */}
       <main className=" relative z-10 pb-20 overflow-hidden bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#462c4e,#0b0a05_66%,#000000)]" >
         <div className="w-full max-w-6xl mx-auto px-4 ">
-          {/* Floating Features */}
           <FloatingFeatures />
         </div>
-        {/* Pricing Section */}
+
 
 
       </main >
       <main className="relative z-10  pb-20 overflow-hidden background-nebula-gradient" >
         <div className="w-full max-w-6xl mx-auto px-4 ">
-          {/* Pricing Section */}
+
           <PricingSection />
         </div>
       </main >

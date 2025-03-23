@@ -62,7 +62,7 @@ const Navbar = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
-            <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="mx-auto px-4   sm:px-6 lg:px-8 py-4">
                 <div className="backdrop-blur-xl bg-slate-900/50 rounded-lg border border-slate-700/40 shadow-lg px-4 py-2 flex items-center justify-between">
                     {/* Subtle glow effect */}
                     <div className="absolute inset-0 rounded-lg bg-slate-700/5 blur-md"></div>
