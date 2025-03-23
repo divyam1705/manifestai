@@ -13,37 +13,40 @@ import ProgressMetrics from "@/components/dashboard/ProgressMetrics";
 import { ScheduleOutput } from "@/actions/schedule-generator";
 import { supabase } from "@/lib/supabase";
 
-// Define types for the data
+// Define types for the data to match component interfaces
 interface ScheduleItem {
-    id: number | string;
+    id: number;
     title: string;
     time: string;
     completed: boolean;
+}
+
+interface ScheduleData {
+    morning: ScheduleItem[];
+    afternoon: ScheduleItem[];
+    evening: ScheduleItem[];
+    [key: string]: ScheduleItem[];
 }
 
 interface Task {
-    id: number | string;
+    id: number;
     title: string;
-    description?: string;
-    completed: boolean;
     priority: 'high' | 'medium' | 'low';
-    category: string;
-    dueDate?: string;
+    completed: boolean;
+    dueDate: string;
 }
 
 interface UpcomingTask {
-    id: number | string;
+    id: number;
     title: string;
     time: string;
-    day?: string;
-    dueDate?: string;
+    dueDate: string;
 }
 
 interface Goal {
-    id: number | string;
+    id: number;
     title: string;
     progress: number;
-    completed: boolean;
 }
 
 interface LearningResource {
@@ -62,12 +65,7 @@ interface DashboardData {
     xp: number;
     level: number;
     nextLevel: number;
-    schedule: {
-        morning: ScheduleItem[];
-        afternoon: ScheduleItem[];
-        evening: ScheduleItem[];
-        [key: string]: ScheduleItem[];
-    };
+    schedule: ScheduleData;
     tasks: Task[];
     upcomingTasks: UpcomingTask[];
     weeklyGoals: Goal[];
@@ -255,20 +253,18 @@ export default function Dashboard() {
                     // Set weekly goals from the weekly_goals array if available
                     if (scheduleData.weekly_goals && scheduleData.weekly_goals.length > 0) {
                         updatedData.weeklyGoals = scheduleData.weekly_goals.map((goal, index) => ({
-                            id: `wg-${index}`,
+                            id: index + 1,
                             title: goal,
-                            progress: Math.random() * 100, // Random progress for demo
-                            completed: false
+                            progress: Math.random() * 100 // Random progress for demo
                         }));
                     }
 
                     // Set monthly goals from the monthly_goals array if available
                     if (scheduleData.monthly_goals && scheduleData.monthly_goals.length > 0) {
                         updatedData.monthlyGoals = scheduleData.monthly_goals.map((goal, index) => ({
-                            id: `mg-${index}`,
+                            id: index + 1,
                             title: goal,
-                            progress: Math.random() * 100, // Random progress for demo
-                            completed: false
+                            progress: Math.random() * 100 // Random progress for demo
                         }));
                     }
 
@@ -312,12 +308,11 @@ export default function Dashboard() {
 
                         // Create tasks for today from the schedule
                         updatedData.tasks = todaySchedule.map((task, index) => ({
-                            id: `task-${index}`,
+                            id: index + 1,
                             title: task.task,
-                            description: task.description || '',
                             completed: false,
                             priority: 'medium',
-                            category: 'work'
+                            dueDate: "Today"
                         }));
 
                         // Check if tomorrow's schedule is available to create upcoming tasks
@@ -327,10 +322,10 @@ export default function Dashboard() {
                         if (scheduleData.weekly_schedule[tomorrow as keyof typeof scheduleData.weekly_schedule]) {
                             const tomorrowSchedule = scheduleData.weekly_schedule[tomorrow as keyof typeof scheduleData.weekly_schedule];
                             updatedData.upcomingTasks = tomorrowSchedule.slice(0, 3).map((task, index) => ({
-                                id: `upcoming-${index}`,
+                                id: index + 1,
                                 title: task.task,
-                                time: task.time,
-                                day: tomorrow
+                                time: task.time.split(' - ')[0],
+                                dueDate: `Tomorrow, ${task.time}`
                             }));
                         }
                     }
