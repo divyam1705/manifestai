@@ -127,11 +127,11 @@ const WishInput = () => {
                                     <span className="absolute right-3 bottom-3 h-5 w-0.5 bg-slate-500 animate-blink"></span>
                                 )}
 
-                                <div className="mt-5 flex justify-end">
+                                <div className="mt-5 flex justify-end ">
                                     <Button
                                         type="submit"
                                         disabled={!wish.trim() || isSubmitting}
-                                        className={`${isSubmitting ? 'bg-slate-800' : 'bg-purple-600 hover:bg-purple-700'} tracking-wide cursor-pointer text-white rounded-   `}
+                                        className={`${isSubmitting ? 'bg-slate-800' : 'bg-slate-900 hover:bg-slate-800 border border-purple-500'} tracking-wide cursor-pointer text-white rounded-sm`}
                                     >
                                         {isSubmitting ? (
                                             <span className="!text-white flex items-center">
@@ -139,7 +139,7 @@ const WishInput = () => {
                                                 Manifesting...
                                             </span>
                                         ) : (
-                                            <span className="!text-white flex items-center ">
+                                            <span className=" flex items-center text-purple-300">
                                                 <Send className="h-5 w-5 mr-2" />
                                                 Manifest
                                             </span>

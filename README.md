@@ -2,119 +2,96 @@
 
 A premium, Nebula-themed AI-powered productivity app that helps users achieve their dreams through personalized, scientifically-backed scheduling and habit-building techniques.
 
-## Core Features & Functionalities
+## Implemented Features
 
-### 1. Dream & Goal Input
+### 1. Google Authentication
 
-- Users enter their dream/goal (e.g., "Become a software engineer").
-- The app asks personalization questions to build an optimal schedule:
-  - Chronotype: Are you a morning person or night owl?
-  - Focus Time: When do you concentrate best?
-  - Work Style: Do you prefer strict schedules or flexibility?
-  - Break Preferences: How long should breaks be?
-  - Distractions: What frequently disrupts your work?
-  - Work/Study Mode: Deep Work, Pomodoro, or time-blocking?
-  - Exercise & Meditation Inclusion: Y/N (shows scientific benefits)
+- Secure login with Google OAuth
+- User data persistence through Supabase
+- Calendar permissions integration for schedule import
 
-### 2. Smart Schedule Generation
+### 2. Dream & Goal Input
 
-- AI-powered timetable based on the user's preferences.
-- Import work/class schedules from Google Calendar API.
-- Generates:
-  - Daily tasks: Specific action items with time slots.
-  - Weekly & Monthly goals: Bigger milestones.
-- Time-blocking & Prioritization:
-  - Urgent vs. Important (Eisenhower Matrix).
-  - Auto-adjustment based on performance & consistency.
+- Users enter their dream/goal (e.g., "Become a software engineer")
+- Extensive personalization questionnaire:
+  - Chronotype (morning person/night owl)
+  - Energy waves and peak productivity times
+  - Focus style preferences
+  - Break durations and frequency
+  - Sleep schedule optimization
+  - Exercise & meditation integration
 
-### 3. Exercise & Meditation Integration
+### 3. Fixed Schedule Management
 
-- Users can opt to schedule workouts & meditation.
-- Below these, show scientifically-backed benefits like:
-  - Exercise improves cognitive function (Harvard).
-  - Meditation enhances focus (Mindfulness studies).
+- Import existing commitments from Google Calendar
+- Manual addition of classes, work shifts, and regular appointments
+- Color-coded events by category (work, class, personal, other)
+- Day-by-day schedule view with time slots
 
-### 4. Gamification & Habit-Building
+### 4. AI-Generated Smart Schedule
 
-- Users "level up" by completing tasks consistently.
-- Streaks, XP, Badges for motivation.
-- Weekly & monthly progress reports.
-- Habit streak tracking from Atomic Habits.
+- LangChain-powered schedule generation using GPT-4o-mini
+- Personalized daily, weekly, and monthly plans
+- Time-blocked schedules respecting user preferences and energy levels
+- Weekly and monthly goals with concrete action items
 
-### 5. AI Productivity Insights (LangChain)
+### 5. Enhanced Dashboard
 
-- Personalized suggestions based on performance.
-- Example: "You work best at night, schedule deep work from 8-11 PM."
-- Habit improvement suggestions from books like:
-  - Atomic Habits
-  - Deep Work
-  - The Power of Habit
-  - The 5 AM Club
+- Daily mission tracking with task completion
+- Goal progress visualization with stats
+- Productivity trends and metrics
+- Learning resources tailored to user goals
+- Energy insights based on user chronotype
+- Daily challenges to boost productivity
 
-### 6. Premium UI/UX (Dark Nebula Theme)
+### 6. Task Management
 
-- Glassmorphism UI with space aesthetics.
-- Smooth animations (Framer Motion).
-- Background music (customizable).
+- Edit, add, and delete tasks from the generated schedule
+- Simple task marking for completion tracking
+- Task prioritization system
+- Upcoming tasks view
 
-## Tech Stack & Architecture
+### 7. Google Calendar Export
+
+- Export generated schedules to Google Calendar
+- Maintain schedule across devices and platforms
+
+### 8. Premium UI/UX
+
+- Dark celestial theme with cosmic design elements
+- Glassmorphism cards and containers
+- Smooth animations and transitions using Framer Motion
+- Responsive design for all device sizes
+- Interactive loading screens
+
+## Technologies Used
 
 ### Frontend:
 
-- Next.js – SSR & optimized performance.
-- ShadCN – Modern UI components.
-- Tailwind CSS – Efficient styling.
+- **Next.js 15** – React framework with App Router
+- **TypeScript** – Type-safe JavaScript
+- **ShadCN UI** – Component library for consistent design
+- **Tailwind CSS** – Utility-first CSS framework
+- **Framer Motion** – Animation library for smooth transitions
+- **Lucide Icons** – Modern icon set
 
 ### Backend:
 
-- Supabase (PostgreSQL) – Authentication & database.
-- Google Calendar API – Schedule import.
-- LangChain – AI-driven recommendations.
+- **Supabase** – Authentication, database, and serverless functions
+- **LangChain** – Framework for AI language model applications
+- **OpenAI GPT-4o-mini** – State-of-the-art AI model for schedule generation
 
-### State Management & API:
+### Integration:
 
-- Recoil/Zustand – Lightweight state management.
-- Supabase Functions – Backend logic & APIs.
+- **Google OAuth** – Secure authentication
+- **Google Calendar API** – Calendar import and export
+- **Vercel** – Deployment and hosting
 
-## Development Plan
+### Data Flow:
 
-### Phase 1: UI/UX Design
-
-- Design Nebula-themed dark mode UI.
-- Glass cards, space animations, soothing background music.
-
-### Phase 2: Authentication & User Input
-
-- Sign-up/Login with Supabase Auth.
-- Input dreams & personalization preferences.
-
-### Phase 3: Smart Scheduling & AI Integration
-
-- Google Calendar Import.
-- AI-generated time-blocked schedules.
-
-### Phase 4: Gamification & Habit Tracking
-
-- Streaks, XP system, habit-building rewards.
-- AI-powered insights & habit optimization.
-
-### Phase 5: Final Enhancements
-
-- Animations, music & aesthetic improvements.
-- Bug fixes & final UI polish.
-
-## Project Structure
-
-```
-src/
-├── components/  # Reusable UI components
-├── pages/       # Route-based pages
-├── hooks/       # Custom React hooks
-├── utils/       # Helper functions
-├── store/       # Recoil/Zustand state management
-├── api/         # API integration (Google Calendar, Supabase)
-├── styles/      # Tailwind styles
-```
+- User preferences and inputs → LangChain processing → OpenAI GPT-4o-mini → JSON response → Client-side rendering
+- Real-time state management with React hooks
+- Local storage for persistence of preferences and schedules
 
 ## Getting Started
 
@@ -122,15 +99,39 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Environment Variables
+
+Create a `.env.local` file with the following:
+
+```
+OPENAI_API_KEY=your_openai_api_key
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+## Project Structure
+
+```
+src/
+├── actions/         # Server actions (schedule generator, Google Calendar)
+├── api/             # API integration (auth, goals)
+├── app/             # Next.js App Router pages & layouts
+├── components/      # Reusable UI components
+│   ├── ui/          # ShadCN UI components
+│   └── dashboard/   # Dashboard-specific components
+├── lib/             # Utility libraries and configurations
+├── styles/          # Global styles
+```
+
 ## Future Enhancements
 
-- Focus Mode – Blocks distractions (Chrome Extension support).
-- Social Accountability – Study rooms for co-working.
-- Widget Support – Quick access to tasks.
-- Habit Stacking – "If you do Task A, follow it with Task B."
+- Focus Mode – Blocks distractions during work sessions
+- Social Accountability – Study rooms for co-working
+- Mobile App – Native experience with push notifications
+- AI Coaching – Personalized productivity advice based on performance
