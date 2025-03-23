@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { MenuIcon, Orbit, X } from "lucide-react";
 import { supabase } from '@/lib/supabase'; // Ensure you have the supabase client set up
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+    const router = useRouter();
     const [user, setUser] = useState<null | object>(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -87,6 +89,8 @@ const Navbar = () => {
                     <div className="hidden md:flex items-center space-x-6 relative">
                         <NavLink onClick={() => scrollToSection('features')}>Features</NavLink>
                         <NavLink onClick={() => scrollToSection('pricing')}>Pricing</NavLink>
+                        <NavLink onClick={() => router.push("/privacy-policy")}>Privacy</NavLink>
+
 
                         {!user ? (
                             <Button
