@@ -189,11 +189,12 @@ export default function Dashboard() {
             try {
                 // Fetch user data from Supabase
                 const { data: { user } } = await supabase.auth.getUser();
-
+                console.log(user)
                 if (user) {
                     // Get user name from Supabase user metadata
-                    const name = user.user_metadata?.name || user.email?.split('@')[0] || 'User';
+                    const name = user.user_metadata?.name || 'User';
                     setUserName(name);
+                    console.log(name)
 
                     // Update the user name in the dashboard data
                     setData(prevData => ({
@@ -211,8 +212,12 @@ export default function Dashboard() {
                     // Transform data for the dashboard
                     const updatedData = { ...initialData };
 
-                    // Set user name from Supabase (we've already set it above)
-                    updatedData.userName = userName;
+                    // Set user name from Supabase user metadata
+                    if (user && user.user_metadata?.name) {
+                        updatedData.userName = user.user_metadata.name;
+                    } else {
+                        updatedData.userName = userName;
+                    }
 
                     // Extract a quote from productivity tips if available
                     if (scheduleData.productivity_tips && scheduleData.productivity_tips.length > 0) {
