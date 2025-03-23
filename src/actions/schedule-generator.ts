@@ -6,6 +6,8 @@ import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
 
 // Define task type with description field
+export const maxDuration = 50;
+
 export type ScheduleTask = {
   time: string;
   task: string;
