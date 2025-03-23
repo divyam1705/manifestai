@@ -40,7 +40,7 @@ const AddEvent: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='bg-white'>
             <h2>Add Event to Calendar</h2>
             {error && <p className="text-red-500">{error}</p>}
             <Input

@@ -63,13 +63,29 @@ export const deleteEvent = async (eventId: string) => {
 };
 
 export const importEvents = async () => {
+  const token = await getAccessToken();
+  const now = new Date();
+  const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay())); // Start of current week
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(endOfWeek.getDate() + 30); // End of current week
+  const startOfNextWeek = new Date(endOfWeek);
+  startOfNextWeek.setDate(startOfNextWeek.getDate() + 1); // Start of next week
+  const endOfNextWeek = new Date(startOfNextWeek);
+  endOfNextWeek.setDate(endOfNextWeek.getDate() + 7); // End of next week
+
+  const timeMin = startOfWeek.toISOString();
+  const timeMax = endOfNextWeek.toISOString();
+
   try {
-    const response = await fetch(GOOGLE_CALENDAR_API_URL, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${await getAccessToken()}`, // Function to get access token
-      },
-    });
+    const response = await fetch(
+      `${GOOGLE_CALENDAR_API_URL}?timeMin=${timeMin}&timeMax=${timeMax}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, // Function to get access token
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Error fetching events: ${response.statusText}`);
@@ -85,32 +101,30 @@ export const importEvents = async () => {
 
 const getAccessToken = async () => {
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  // Check for provider_token in user meta_data
-  let providerToken = user?.user_metadata?.provider_token;
-  // console.log("user met", user?.user_metadata);
-  if (!providerToken) {
-    // If not found, check the session for provider_token
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
+  // Check for provider_token in session
+  let providerToken = session?.provider_token;
+  const providerRefreshToken = session?.provider_refresh_token;
 
-    if (session?.provider_token) {
-      // Update user meta_data with provider_token and provider_refresh_token
-      providerToken = session.provider_token;
-      const providerRefreshToken = session.provider_refresh_token;
-
-      await supabase.auth.updateUser({
-        data: {
-          provider_token: providerToken,
-          provider_refresh_token: providerRefreshToken,
-        },
-      });
-    }
+  if (providerToken) {
+    await supabase.auth.updateUser({
+      data: {
+        provider_token: providerToken,
+        provider_refresh_token: providerRefreshToken,
+      },
+    });
   }
 
-  // console.log("provider_token", providerToken);
+  if (!providerToken) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    // Check for provider_token in user meta_data
+    providerToken = user?.user_metadata?.provider_token;
+  }
+
   return providerToken; // Return the provider_token
 };

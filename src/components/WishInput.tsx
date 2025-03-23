@@ -1,14 +1,12 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles, Send, Stars, Lightbulb, WandSparkles } from 'lucide-react';
+import { Send, Stars, Lightbulb, WandSparkles } from 'lucide-react';
 import { SparklesText } from './magicui/sparkles-text';
-import { TextAnimate } from './magicui/text-animate';
-import { ShimmerButton } from './magicui/shimmer-button';
-import { ShinyButton } from './magicui/shiny-button';
 
 // Sample wishes for suggestions
 const sampleWishes = [
@@ -20,9 +18,9 @@ const sampleWishes = [
 ];
 
 const WishInput = () => {
+    const router = useRouter();
     const [wish, setWish] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
     const [displayText, setDisplayText] = useState('');
     const [currentWishIndex, setCurrentWishIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -73,17 +71,13 @@ const WishInput = () => {
 
         setIsSubmitting(true);
 
-        // Simulate API call
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setShowSuccess(true);
+        // Store the wish in localStorage or state management
+        localStorage.setItem('userWish', wish);
 
-            // Hide success message after 3s
-            setTimeout(() => {
-                setShowSuccess(false);
-                setWish('');
-            }, 3000);
-        }, 1500);
+        // Navigate to the preferences page
+        setTimeout(() => {
+            router.push('/preferences');
+        }, 1000);
     };
 
     const handleSuggestionClick = (suggestion: string) => {
@@ -110,8 +104,6 @@ const WishInput = () => {
                         <div className="flex items-center space-x-2">
                             <WandSparkles className="h-6 w-6 text-blue-400" />
                             <CardTitle className="text-2xl font-heading tracking-wide text-white">
-
-
                                 <SparklesText sparklesCount={3} className='text-3xl' text="Make a Wish" />
                             </CardTitle>
                         </div>
@@ -123,7 +115,6 @@ const WishInput = () => {
                     <CardContent className="pb-5">
                         <form onSubmit={handleWishSubmit} className="space-y-5">
                             <div className="relative">
-
                                 <Textarea
                                     placeholder={displayText || "I want to..."}
                                     value={wish}
@@ -137,7 +128,6 @@ const WishInput = () => {
                                 )}
 
                                 <div className="mt-5 flex justify-end">
-
                                     <Button
                                         type="submit"
                                         disabled={!wish.trim() || isSubmitting}
@@ -157,20 +147,6 @@ const WishInput = () => {
                                     </Button>
                                 </div>
                             </div>
-
-                            <AnimatePresence>
-                                {showSuccess && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        className="p-4 rounded-lg bg-slate-900/70 border border-emerald-500/30 text-emerald-300 flex items-center"
-                                    >
-                                        <Sparkles className="h-5 w-5 mr-3 text-emerald-400" />
-                                        <span className="text-lg">Your wish has been received! We&apos;re creating your manifest.</span>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
                         </form>
                     </CardContent>
 
@@ -205,8 +181,6 @@ const WishInput = () => {
                     </div>
                 </Card>
             </motion.div>
-
-
         </div>
     );
 };
