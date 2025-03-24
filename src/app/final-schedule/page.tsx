@@ -675,14 +675,14 @@ Ensure the schedule is **realistic, achievable, and aligned with human psycholog
                     </div>
 
                     <div className="flex gap-2">
-                        <Button
+                        {/* <Button
                             variant="outline"
                             onClick={() => setShowDebug(!showDebug)}
                             className="mt-4 md:mt-0 bg-black/40 text-slate-400 border-slate-700/30 hover:bg-black/60 hover:text-slate-300"
                             size="sm"
                         >
                             {showDebug ? "Hide Debug" : "Show Debug"}
-                        </Button>
+                        </Button> */}
 
                         <Button
                             variant="outline"
