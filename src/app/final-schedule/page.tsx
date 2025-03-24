@@ -658,12 +658,12 @@ Ensure the schedule is **realistic, achievable, and aligned with human psycholog
     };
 
     return (
-        <div className="min-h-screen py-30 w-full overflow-hidden relative bg-zinc-950">
+        <div className="min-h-screen py-30 w-full overflow-hidden relative bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#260d2d,#261a29,#0b0a05_66%,#000000)]">
             {/* Stars background */}
-            <div className="absolute inset-0 bg-[url('/images/stars-bg.png')] bg-repeat opacity-30 pointer-events-none"></div>
+            {/* <div className="absolute inset-0 bg-[url('/images/stars-bg.png')] bg-repeat opacity-30 pointer-events-none"></div> */}
 
             {/* Dark gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 to-black/90 pointer-events-none"></div>
+            {/* <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 to-black/90 pointer-events-none"></div> */}
 
             <div className="relative z-10 container mx-auto px-4 py-8">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
@@ -707,6 +707,7 @@ Ensure the schedule is **realistic, achievable, and aligned with human psycholog
                     <>
                         {isGenerating ? (
                             <div className="flex flex-col items-center justify-center min-h-[70vh]">
+                                <div className="stars"></div>
                                 <div className="relative w-28 h-28 mb-8">
                                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 blur-xl opacity-50 animate-pulse"></div>
                                     <div className="relative z-10 w-full h-full flex items-center justify-center">
@@ -740,6 +741,7 @@ Ensure the schedule is **realistic, achievable, and aligned with human psycholog
                             </div>
                         ) : (
                             <div className="flex flex-col items-center justify-center min-h-[70vh] py-12">
+                                <div className="stars"></div>
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
@@ -769,13 +771,13 @@ Ensure the schedule is **realistic, achievable, and aligned with human psycholog
                                 >
                                     <Button
                                         className="bg-black hover:bg-zinc-900 text-white py-6 px-10 rounded-xl flex items-center justify-center gap-3 text-lg
-                                                  transition-all duration-300 relative group overflow-hidden"
+                                                  transition-all  duration-300 relative group overflow-hidden cursor-pointer"
                                         onClick={handleGenerateAISchedule}
                                         disabled={isGenerating}
                                     >
                                         {/* Gradient border effect */}
-                                        <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                                        <span className="absolute inset-[2px] bg-black rounded-lg z-10"></span>
+                                        <span className=" absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-50 group-hover:opacity-100 transition-opacity duration-300"></span>
+                                        <span className="absolute inset-[2px] bg-black rounded-xl z-10"></span>
 
                                         {/* Content */}
                                         <span className="relative z-20 flex items-center">

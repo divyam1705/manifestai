@@ -75,7 +75,7 @@ const Navbar = () => {
                         className="flex items-center relative"
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
-                        <button onClick={() => scrollToSection('hero')} className="flex items-center space-x-2">
+                        <button onClick={() => router.push("/")} className="flex items-center space-x-2 cursor-pointer">
                             <div className="w-12 h-12 rounded-lg bg-slate-950 flex items-center justify-center border border-slate-600/30">
                                 <Orbit size={28} className="text-slate-300" />
                             </div>

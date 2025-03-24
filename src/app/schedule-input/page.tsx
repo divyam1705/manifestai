@@ -371,8 +371,8 @@ export default function ScheduleInputPage() {
         <div className="pt-25 min-h-screen w-full overflow-hidden relative">
             {/* Celestial Background with stars animation */}
             {/* <CelestialBackground fullScreen={true} className="absolute inset-0" /> */}
-            <StarField />
-
+            {/* <StarField /> */}
+            <div className="stars"></div>
             {/* Add a subtle overlay for better text contrast */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-gray-950/40"></div>
 
