@@ -19,6 +19,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Manifest AI - Transform Your Dreams Into Reality",
   description: "AI-powered platform to manifest your goals and dreams",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+    shortcut: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -28,6 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href='/favicon.png' />
+        <link rel="apple-touch-icon" href='/favicon.png' />
+        <link rel="shortcut icon" href="/favicon.png" />
+      </head>
       <body className={`${inter.variable} ${raleway.variable} font-sans antialiased bg-[#0F172A] text-white`}>
         <div className="relative z-20">
           <Navbar />

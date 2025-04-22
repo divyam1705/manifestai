@@ -1,10 +1,11 @@
 "use client"
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MenuIcon, Orbit, X } from "lucide-react";
+import { MenuIcon, X } from "lucide-react";
 import { supabase } from '@/lib/supabase'; // Ensure you have the supabase client set up
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Navbar = () => {
     const router = useRouter();
@@ -65,20 +66,18 @@ const Navbar = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
-            <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <div className="backdrop-blur-xl bg-slate-900/50 rounded-lg border border-slate-700/40 shadow-lg px-4 py-2 flex items-center justify-between">
+            <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4 ">
+                <div className="backdrop-blur-xl bg-slate-950 rounded-lg border border-slate-900 shadow-lg px-4 py-2 flex items-center justify-between">
                     {/* Subtle glow effect */}
-                    <div className="absolute inset-0 rounded-lg bg-slate-700/5 blur-md"></div>
+                    <div className="bg-slate-950 absolute inset-0 rounded-lg"></div>
 
                     {/* Logo */}
                     <motion.div
-                        className="flex items-center relative"
+                        className="flex items-center relative "
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
                         <button onClick={() => router.push("/")} className="flex items-center space-x-2 cursor-pointer">
-                            <div className="w-12 h-12 rounded-lg bg-slate-950 flex items-center justify-center border border-slate-600/30">
-                                <Orbit size={28} className="text-slate-300" />
-                            </div>
+                            <Image src="/manifest-icon.png" alt="Logo" width={45} height={45} className="rounded-lg shadow-2xl border border-neutral-900" />
                             <span className="text-white font-semibold text-xl font-raleway">
                                 Manifest AI
                             </span>
