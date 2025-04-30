@@ -71,7 +71,7 @@ export async function generateSchedule(
     const model = new ChatOpenAI({
       modelName: "gpt-4o-mini", // Using a capable model
       temperature: 0.5, // Lower temperature for more predictable output
-      maxTokens: 3000,
+      maxTokens: 10000,
       apiKey: process.env.OPENAI_API_KEY,
     });
 

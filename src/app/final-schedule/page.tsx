@@ -287,6 +287,7 @@ Expected Output
     17. Provide relevant learning resources with actual URLs to helpful content 
     18. Add energy insights based on the user's chronotype and preferences
     19. Include progress metrics with concrete focus areas and milestones
+    20. Keep the response concise so that it does not exceed 4096 tokens
     
 
 Ensure the schedule is **realistic, achievable, and aligned with human psychology**. Do not overload the user with too many tasks in a day. Include a detailed description for each task in the schedule.
